@@ -1,7 +1,11 @@
 pipeline {
-    agent  {
+    agent {
+    docker {
+       
         label 'docker'
+      
     }
+}
     stages {
         stage('Build image') {
             steps {
