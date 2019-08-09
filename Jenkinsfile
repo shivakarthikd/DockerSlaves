@@ -5,7 +5,7 @@ pipeline {
             steps {
                 script{
                   echo 'Starting to build docker image'
-                  def myEnv = docker.build 'my-environment:snapshot'
+                  def myEnv = docker.build 'my-java:snapshot'
                 
                   myEnv.inside {
                  
