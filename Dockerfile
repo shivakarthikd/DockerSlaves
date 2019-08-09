@@ -1,11 +1,12 @@
-FROM alpine:latest
-CMD ["javac","HelloWorld.java"]
-ADD HelloWorld.class HelloWorld.class
-RUN apk --update add openjdk8-jre
+FROM openjdk:7
+COPY . /usr/src/myapp
+WORKDIR /usr/src/myapp
+RUN javac HelloWorld.java
+CMD ["java", "Main"]
 
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "HelloWorld"]
+
 
 
 # Run app.java when the container launches
 
-CMD ["java","HelloWorld.java"]
+CMD ["java","HelloWorld"]
