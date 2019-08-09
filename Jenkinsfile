@@ -5,11 +5,11 @@ pipeline {
             steps {
                 script{
                   echo 'Starting to build docker image'
-                  def myEnv = docker.build 'my-java:snapshot'
+                  def myEnv = docker.build 'maven:latest'
                 
                   myEnv.inside {
                  
-                  echo "build successfull"
+                  sh 'mvn -B -DskipTests clean package'
                 }
                 }
                 
