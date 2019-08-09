@@ -1,21 +1,18 @@
 pipeline {
-    agent {
-    docker {
-       
-        label 'docker'
-      
-    }
-}
+    agent any
     stages {
         stage('Build image') {
             steps {
-                echo 'Starting to build docker image'
-
-                script {
-                    
-                    docker.build("my-image:${env.BUILD_ID}")
-                   
+                script{
+                  echo 'Starting to build docker image'
+                  def myEnv = docker.build 'my-environment:snapshot'
+                
+                  myEnv.inside {
+                 
+                  echo "build successfull"
                 }
+                }
+                
             }
         }
     }
