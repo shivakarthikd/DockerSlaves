@@ -1,7 +1,5 @@
-FROM openjdk:7
+FROM maven:3-alpine
 COPY . /usr/src/myapp
 WORKDIR /usr/src/myapp
-RUN javac HelloWorld.java
+RUN mvn install
 
-# Run app.java when the container launches
-CMD ["java","HelloWorld"]
