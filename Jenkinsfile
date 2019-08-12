@@ -1,25 +1,28 @@
 pipeline {
     agent any
     stages {
-        script{
+        stage('Build image') {
+            script {
                   echo 'Starting to build docker image'
                   def myEnv=docker.image('maven:3-alpine')
-            }
-        stage('Build image') {
-            steps {
-                  myEnv.inside {
-                        sh 'mvn -B -DskipTests clean package'
+            
+                  steps {
+                        myEnv.inside {
+                              sh 'mvn -B -DskipTests clean package'
+                        }
                   }
-            } 
+            }
         }
         stage('Test') {
-            steps {
-                 myEnv.inside {
+            script {
+                 steps {
+                      myEnv.inside {
                           sh 'mvn test'
+                      }
                  }
-             }
+            }
                       
-             post {
+            post {
                   always {
                         junit 'target/surefire-reports/*.xml'
                   }
