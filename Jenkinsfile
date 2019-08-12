@@ -2,11 +2,10 @@ pipeline {
     agent any
     stages {
         stage('Build image') {
-            script {
+           steps {
+               script {
                   echo 'Starting to build docker image'
                   def myEnv=docker.image('maven:3-alpine')
-            
-                  steps {
                         myEnv.inside {
                               sh 'mvn -B -DskipTests clean package'
                         }
@@ -14,8 +13,8 @@ pipeline {
             }
         }
         stage('Test') {
-            script {
-                 steps {
+            steps {
+                script {
                       myEnv.inside {
                           sh 'mvn test'
                       }
